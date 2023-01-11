@@ -20,6 +20,8 @@ with open (file_name,"rb") as file :
     start = time.time()
 
     while begin_size <= file_size :
+        os.system("cls")
+        print(begin_size ," / ", int(file_size))
         data = file.read(1024)
         if not (data) : 
             break
