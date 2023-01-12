@@ -1,6 +1,6 @@
 import os , socket , time
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-sock.bind((socket.gethostname(),8000))
+sock.bind((socket.gethostname(),8001))
 sock.listen(5)
 print("HOST : ",sock.getsockname())
 
@@ -20,8 +20,6 @@ with open (file_name,"rb") as file :
     start = time.time()
 
     while begin_size <= file_size :
-        os.system("cls")
-        print(begin_size ," / ", int(file_size))
         data = file.read(1024)
         if not (data) : 
             break

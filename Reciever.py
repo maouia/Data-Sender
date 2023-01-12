@@ -1,10 +1,10 @@
-import os , socket , time
+import os,socket,time
 
 host = input("Enter Host Sender : ")
-socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 try : 
-    socket.connect((host,8000))
+    sock.connect((host,8021))
     print("connected")
 except : 
     print("Unable to connect")
@@ -12,8 +12,11 @@ except :
 
 
 #recive file from host
-file_name= socket.recv(100).decode()
-file_size = socket.recv(100).decode()
+file_name= sock.recv(4096).decode()
+file_size = sock.recv(4096).decode()
+
+file_name.replace(file_size,'')
+
 
 #Create folder and white the file inside
 with open('./'+file_name,'wb') as file :
@@ -21,17 +24,13 @@ with open('./'+file_name,'wb') as file :
 
     start = time.time()
 
+
     while begin_size <= int(file_size) :
-        os.system("cls")
-        print(begin_size ," / ", int(file_size))
-        data=socket.recv(1024)
-        
+        data=sock.recv(1024)
         if not (data):
             break
         file.write(data)
         begin_size += len(data)
-
-
     end = time.time()
 
 print("File transfer complete. Total time : ",end-start)
