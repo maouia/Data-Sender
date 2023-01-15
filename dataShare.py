@@ -14,9 +14,10 @@ def Resive():
 
     # recive file from host
     file_name = sock.recv(4096).decode()
-    file_size = sock.recv(4096).decode()
-
-    file_name.replace(file_size, '')
+    file_size = sock.recv(100).decode()
+    
+    file_size=int(file_size)
+    file_name.replace(str(file_size), '')
 
     # Create folder and white the file inside
     with open('./' + file_name, 'wb') as file:
@@ -32,6 +33,7 @@ def Resive():
             begin_size += len(data)
         end = time.time()
     print("File transfer complete. Total time : ", end - start)
+
 
 def Send() :
 
